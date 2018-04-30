@@ -1,0 +1,85 @@
+.notes {
+	width: 75% !important;
+	max-width: 650px !important;
+	margin: 0 auto;
+}
+
+.landing {
+	width: 75% !important;
+	max-width: 500px !important;
+	margin: 0 auto;
+	font-size: 20px !important;
+}
+
+.note {
+	padding: 20px !important;
+	font-size: 18px;
+}
+
+.note:nth-of-type(even){
+	background-color: #E1E1E1 !important;
+}
+
+.card-title{
+	font-size: 32px !important;
+}
+
+.check {
+	position: relative;
+	display: none !important;
+	box-shadow: none !important;
+	top: -42.5px;
+	height: 62.5px !important;
+	left: 20px;
+	border-radius: 0 !important;
+}
+
+.edit {
+	position: relative;
+	display: none !important;
+	box-shadow: none !important;
+	top: -42.5px;
+	height: 62.5px !important;
+	left: 20px;
+	border-radius: 0 !important;
+}
+
+.close {
+	position: relative;
+	display: none !important;
+	box-shadow: none !important;
+	top: -20px;
+	height: 62.5px !important;
+	left: 20px;
+	border-radius: 0 !important;
+}
+
+.delete_form {
+	position: relative;
+	top: -22.5px;
+}
+
+.date {
+	font-size: 0.8rem !important;
+	vertical-align: top !important;
+	color: grey;
+	margin-left: 0 !important;
+}
+
+.note:hover .close {
+	display: inline !important;
+}
+
+.note:hover .edit {
+	display: inline !important;
+}
+
+.note:hover .check {
+	display: inline !important;
+}
+
+#note-container {
+	width: 80%;
+	max-width: 800px;
+	margin: 0 auto;
+}

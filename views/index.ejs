@@ -1,0 +1,62 @@
+<% include partials/header %>
+<body class="grey lighten-5">
+<nav class="nav-extended">
+    <div class="nav-wrapper">
+        <a class="brand-logo center" href="/">Task List</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul id="nav-mobile" class="hide-on-med-and-down">
+		    <li><a href="/login">Login</a></li>
+		    <li><a href="/signup">Signup</a></li>
+		</ul>
+    </div>
+    <div class="nav-content">
+        <a class="btn-floating btn-large halfway-fab waves-effect waves-light teal add-btn">
+            <i class="material-icons">add</i>
+        </a>
+    </div>
+</nav>
+
+<ul class="sidenav" id="mobile-demo">
+    <li><a href="/login">Login</a></li>
+	<li><a href="/signup">Signup</a></li>
+</ul>
+
+<br>
+<div class="container" id="note-container">
+	<div class="card hoverable z-depth-2 hide" id="form-card">
+		<div class="card-content">
+			<span class="card-title">Add New Task</span>
+        	<form method="POST" action ="/tasks">
+        		<input placeholder="Task" id="task" name="task" type="text" class="validate" required>
+				<button class="btn waves-effect waves-light" name="submit" id="submit">Submit
+					<i class="material-icons right">send</i>
+				</button>
+			</form>
+		</div>
+	</div>     
+	<% if (tasks){ %>
+	<ul class="collection">
+		<% tasks.forEach(function(taski){ %>   
+		<li class="collection-item note">
+			<span class="task"><%= taski.task %></span>
+			<span class="date"><em><%- taski.date %></em></span>
+			<form class="delete_form" method="POST" action="/tasks/<%= taski._id %>?_method=DELETE">
+				<button class="waves-effect waves-light btn right close red"><i class="material-icons">close</i></button>
+			</form>
+			<button class="waves-effect waves-light btn right edit yellow"><i class="material-icons">edit</i></button>
+	      	<button class="waves-effect waves-light btn right check green"><i class="material-icons">check</i></button>
+	    </li>
+	    <% }) %>
+	</ul>
+	<% } %>
+</div>
+<script>
+	var dates = document.querySelectorAll(".date");
+	dates.forEach(function(date){
+		var fromNow = moment(date.innerText).fromNow();
+		date.innerText = fromNow;
+	});
+</script>
+<script type="text/javascript" src="/javascripts/note-app.js"></script>
+</body>
+</html>
