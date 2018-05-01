@@ -7,33 +7,6 @@ const bcrypt = require('bcryptjs');
 let Task = require('../models/posts');
 let User = require('../models/users');
 
-router.get("/login", function(req, res){
-	if (!req.user){
-		res.render("login");
-	}
-	else {
-		req.flash('error', "Already logged in");
-		return res.redirect('/' + user._id + '/tasks');
-	}
-});
-
-router.post("/login",
-	passport.authenticate('local', {
-		failureRedirect: '/login',
-		failureFlash: true,
-	}),
-    function(req, res) {
-    	req.flash('success', "Successfully logged in.");
-  		res.redirect('/' + req.user._id + '/tasks');
-  	}
-);
-
-router.get('/logout', function(req, res){
-  req.logout();
-  req.flash('success', "Successfully logged out.");
-  res.redirect('/');
-});
-
 router.get("/signup", function(req, res){
 	if (!req.user){
 		res.render("signup");
@@ -70,6 +43,33 @@ router.post("/signup", function(req, res){
 			});
 		});
 	})
+});
+
+router.get("/login", function(req, res){
+	if (!req.user){
+		res.render("login");
+	}
+	else {
+		req.flash('error', "Already logged in");
+		return res.redirect('/' + user._id + '/tasks');
+	}
+});
+
+router.post("/login",
+	passport.authenticate('local', {
+		failureRedirect: '/login',
+		failureFlash: true,
+	}),
+    function(req, res) {
+    	req.flash('success', "Successfully logged in.");
+  		res.redirect('/' + req.user._id + '/tasks');
+  	}
+);
+
+router.get('/logout', function(req, res){
+  req.logout();
+  req.flash('success', "Successfully logged out.");
+  res.redirect('/');
 });
 
 module.exports = router;
