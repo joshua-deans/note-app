@@ -9,7 +9,7 @@ let User = require('../models/users');
 router.get("/:user_id/tasks", function(req, res){
 	if (req.user){
 		if (req.user._id.equals(req.params.user_id)){
-			Task.find({}, function(err, tasks){
+			Task.find({"user":req.user._id}, function(err, tasks){
 				if (err){
 					console.log(err);
 					req.flash('error', err);
@@ -37,6 +37,7 @@ router.post("/:user_id/tasks", function(req, res){
 		let task = new Task();
 		task.task = req.body.task;
 		task.date = Date.now();
+		task.user = req.user._id;
 
 		task.save(function(err){
 			if (err){
