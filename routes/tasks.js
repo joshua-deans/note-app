@@ -12,7 +12,7 @@ router.get("/:user_id/tasks", function(req, res){
 			Task.find({"user":req.user._id}, function(err, tasks){
 				if (err){
 					console.log(err);
-					req.flash('error', err);
+					req.flash('error', "Error occurred");
 					res.redirect("/");
 				}
 				else {
@@ -38,15 +38,16 @@ router.post("/:user_id/tasks", function(req, res){
 		task.task = req.body.task;
 		task.date = Date.now();
 		task.user = req.user._id;
+		console.log(task);
 
 		task.save(function(err){
 			if (err){
 				console.log(err);
-				req.flash('error', err);
+				req.flash('error', "Error occurred");
 				res.redirect('back');
 			}
 			else {
-				req.flash('success', "Successfully added task");
+				req.flash('success', "Task added");
 				res.redirect('back');
 			}
 		})
@@ -62,12 +63,12 @@ router.delete("/:user_id/tasks/:task_id", function(req, res){
 		Task.findByIdAndRemove(req.params.task_id, function(err){
 			if (err){
 				console.log(err);
-				req.flash('error', err);
+				req.flash('error', "Error occured");
 				return;
 			}
 			else {
-				req.flash('success', "Successfully delete task");
-				res.redirect('back');
+				req.flash('success', "Task deleted");
+				return;
 			}
 		});	
 	}

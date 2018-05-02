@@ -28,7 +28,7 @@
 			<span class="card-title">Add New Task</span>
         	<form method="POST" action ="/<%= users._id %>/tasks">
         		<input placeholder="Task" id="task" name="task" type="text" class="validate" required>
-				<button class="btn waves-effect waves-light" name="submit" id="submit">Submit
+				<button class="btn waves-effect waves-light" name="submit" id="submit-task">Submit
 					<i class="material-icons right">send</i>
 				</button>
 			</form>
@@ -40,11 +40,9 @@
 		<li class="collection-item note">
 			<span class="task"><%= taski.task %></span>
 			<span class="date"><em><%- taski.date %></em></span>
-			<form class="delete_form" method="POST" action="/<%= users._id %>/tasks/<%= taski._id %>?_method=DELETE">
-				<button class="waves-effect waves-light btn right close red lighten-1"><i class="material-icons">close</i></button>
-			</form>
-			<button class="waves-effect waves-light btn right edit yellow darken-1"><i class="material-icons">edit</i></button>
-	      	<button class="waves-effect waves-light btn right check green lighten-1"><i class="material-icons">check</i></button>
+			<button class="waves-effect waves-light btn right close red lighten-1 animated slideInRight" href="<%= taski._id %>"><i class="material-icons">close</i></button>
+			<button class="waves-effect waves-light btn right edit yellow darken-1 animated slideInRight"><i class="material-icons">edit</i></button>
+	      	<button class="waves-effect waves-light btn right check green lighten-1 animated slideInRight"><i class="material-icons">check</i></button>
 	    </li>
 	    <% }) %>
 	</ul>

@@ -25,13 +25,13 @@ router.post("/signup", function(req, res){
 	bcrypt.genSalt(10, function(err, salt){
 		bcrypt.hash(user.password, salt, function(err, hash){
 			if (err){
-				req.flash('error', err);
+				req.flash('error', "Error occurred");
 				res.redirect('/signup');
 			}
 			user.password = hash;
 			user.save(function(err){
 				if (err){
-					req.flash('error', err);
+					req.flash('error', "Error occurred");
 					res.redirect('/signup');
 				}
 				else {
