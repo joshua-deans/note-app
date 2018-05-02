@@ -38,17 +38,16 @@ router.post("/:user_id/tasks", function(req, res){
 		task.task = req.body.task;
 		task.date = Date.now();
 		task.user = req.user._id;
-		console.log(task);
 
 		task.save(function(err){
 			if (err){
 				console.log(err);
 				req.flash('error', "Error occurred");
-				res.redirect('back');
+				return;
 			}
 			else {
 				req.flash('success', "Task added");
-				res.redirect('back');
+				res.send(task);
 			}
 		})
 	}

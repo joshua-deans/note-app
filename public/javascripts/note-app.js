@@ -55,8 +55,9 @@ if (submitTask){
 			      "task": task.value
 			    })
 			.then(function (response) {
-			  console.log(response);
+			  card.children[2].setAttribute("href", response.data._id);
 			  task.value = "";
+			  formCard.classList.toggle("hide");
 			})
 			.catch(function (error) {
 			  console.log(error);
