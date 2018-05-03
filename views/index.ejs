@@ -1,4 +1,9 @@
 <% include partials/header %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>   
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>     
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+</head>
 <body class="grey lighten-5">
 <nav class="nav-extended">
     <div class="nav-wrapper">
@@ -41,13 +46,24 @@
 			<span class="task"><%= taski.task %></span>
 			<span class="date"><em><%- taski.date %></em></span>
 			<button class="waves-effect waves-light btn right close red lighten-1 animated slideInRight" href="<%= taski._id %>"><i class="material-icons">close</i></button>
-			<button class="waves-effect waves-light btn right edit yellow darken-1 animated slideInRight"><i class="material-icons">edit</i></button>
-	      	<button class="waves-effect waves-light btn right check green lighten-1 animated slideInRight"><i class="material-icons">check</i></button>
+			<button data-target="modal1" class="waves-effect waves-light btn right edit yellow darken-1 animated slideInRight modal-trigger" href="<%= taski._id %>"><i class="material-icons">edit</i></button>
 	    </li>
 	    <% }) %>
 	</ul>
 	<% } %>
+	<div id="modal1" class="modal">
+	    <div class="modal-content">
+	      <span class="card-title">Edit Task</span>
+        	<form>
+        		<input placeholder="Task" id="taskEdit" name="taskEdit" type="text" class="validate" required>
+				<button class="btn waves-effect waves-light" name="submit" id="submit-task">Submit
+					<i class="material-icons right">send</i>
+				</button>
+			</form>
+	    </div>
+	</div>
 </div>
+
 <script>
 	var dates = document.querySelectorAll(".date");
 	dates.forEach(function(date){

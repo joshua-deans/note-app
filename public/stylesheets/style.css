@@ -18,16 +18,6 @@
 	font-size: 32px !important;
 }
 
-.check {
-	position: relative;
-	display: none !important;
-	box-shadow: none !important;
-	top: -20px;
-	height: 62.5px !important;
-	left: 20px;
-	border-radius: 0 !important;
-}
-
 .edit {
 	position: relative;
 	display: none !important;
@@ -36,6 +26,8 @@
 	height: 62.5px !important;
 	left: 20px;
 	border-radius: 0 !important;
+	-webkit-animation-duration: .5s !important;
+          animation-duration: .5s !important;
 }
 
 .close {
@@ -46,6 +38,8 @@
 	height: 62.5px !important;
 	left: 20px;
 	border-radius: 0 !important;
+	-webkit-animation-duration: .5s !important;
+          animation-duration: .5s !important;
 }
 
 .delete_form {
@@ -69,13 +63,23 @@
 	display: inline !important;
 	margin-bottom: -42.5px !important;
 }
-
+/*
 .note:hover .check {
 	display: inline !important;
 	margin-bottom: -42.5px !important;
+}*/
+
+/*.task-edit {
+	margin-bottom: 0 !important;
 }
 
-.crossed-out {
-	text-decoration: line-through;
-	color: gray;
+.task-field {
+	margin: 0 !important;
+	width: 65%;
 }
+
+.editting {
+	text-decoration: underline;
+	color: gray;
+}*/
+

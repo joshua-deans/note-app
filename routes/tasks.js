@@ -57,6 +57,26 @@ router.post("/:user_id/tasks", function(req, res){
 	}
 });
 
+router.put("/:user_id/tasks/:task_id", function(req, res){
+	if (req.user && req.user._id.equals(req.params.user_id)){
+		Task.findByIdAndUpdate(req.params.task_id, {task: req.body.taskEdit}, function(err){
+			if (err){
+				console.log(err);
+				req.flash('error', "Error occurred");
+				return;
+			}
+			else {
+				req.flash('success', "Task added");
+				res.send("Okay");
+			};
+		})
+	}
+	else {
+		req.flash('error', "Not authorized");
+		res.redirect('back');
+	}
+});
+
 router.delete("/:user_id/tasks/:task_id", function(req, res){
 	if (req.user && req.user._id.equals(req.params.user_id)){
 		Task.findByIdAndRemove(req.params.task_id, function(err){

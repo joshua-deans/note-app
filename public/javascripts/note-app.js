@@ -1,14 +1,17 @@
-var elem = document.querySelector('.collapsible');
-var instance = M.Collapsible.init(elem);
-
 var closeButtons = document.querySelectorAll(".close");
 var editButtons = document.querySelectorAll(".edit");
-var doneButton = document.querySelectorAll(".check");
 var addButton = document.querySelector(".add-btn");
+var tasks = document.querySelectorAll(".note");
 var formCard = document.querySelector("#form-card");
 var collection = document.querySelector(".collection");
-var submitTask = document.querySelector("#submit-task");
 var dates = document.querySelectorAll(".date");
+var modals = document.querySelector('.modal');
+var taskCard;
+
+document.addEventListener('DOMContentLoaded', function() {
+    var instances = M.Modal.init(modals);
+});
+
 
 closeButtons.forEach(function(button){
 	button.addEventListener("click", closeFunction);
@@ -20,27 +23,36 @@ if (addButton){
 	})
 };
 
-doneButton.forEach(function(button){
-	button.addEventListener("click", function(){
-		var parent = this.parentElement;
-		console.log(parent);
-		var text = parent.children[0].innerText;
-		parent.children[0].classList.toggle("crossed-out");
-		parent.children[1].classList.toggle("crossed-out");
-	});
-});
-
 editButtons.forEach(function(button){
-	button.addEventListener("click", function(){
-		var parent = this.parentElement;
-		console.log(parent);
-		var text = parent.children[0].innerText;
-		parent.children[1].classList.toggle("hide");
-	});
+	button.addEventListener("click", editFunction);
 });
 
-if (submitTask){
-	submitTask.addEventListener("click", function(event){
+if (modals){
+	modals.addEventListener("submit", function(event){
+		event.preventDefault()
+		console.log(document.URL + "/" + modals.attributes.href.value);
+		axios({
+  			method:'put',
+  			url: document.URL + "/" + modals.attributes.href.value, 
+  			data: {"taskEdit": taskEdit.value},
+  			timeout: 5000
+  		})
+		.then(function (response) {
+		  modals.attributes.href.value = "";
+		  taskCard.children[0].innerText = taskEdit.value;
+		  taskEdit.value = "";
+		  M.Modal.getInstance(modals).close();
+		  M.toast({html: 'Task edited', classes: 'green lighten-1'});
+		})
+		.catch(function (error) {
+		  console.log(error);
+		  M.toast({html: error, classes: 'red lighten-1'});
+		});
+	})
+}
+
+if (formCard){
+	formCard.addEventListener("submit", function(event){
 		event.preventDefault()
 		var note = task.value;
 		if (note.length === 0){
@@ -51,19 +63,22 @@ if (submitTask){
 			var card = makeNewNote(note, date);
 			collection.prepend(card);
 			document.querySelector(".close").addEventListener("click", closeFunction);
+			document.querySelector(".edit").addEventListener("click", editFunction);
 			axios.post(document.URL, {
 			      "task": task.value
 			    })
 			.then(function (response) {
 			  card.children[2].setAttribute("href", response.data._id);
+			  card.children[3].setAttribute("href", response.data._id);
 			  task.value = "";
 			  formCard.classList.toggle("hide");
+			  M.toast({html: 'Task added', classes: 'green lighten-1'});
 			})
 			.catch(function (error) {
 			  console.log(error);
 			  task.value = "";
+			  M.toast({html: error, classes: 'red lighten-1'});
 			});
-			M.toast({html: 'Task added', classes: 'green lighten-1'});
 		}
 	});
 };
@@ -74,8 +89,7 @@ function makeNewNote(note, date){
 	listDiv.innerHTML += "<span class=\"task\">" + note + "</span> ";
 	listDiv.innerHTML += "<span class=\"date\">" + date + "</span>";
 	listDiv.innerHTML += "<button class=\"waves-effect waves-light btn right close red lighten-1 animated slideInRight\"><i class=\"material-icons\">close</i></button>"
-	listDiv.innerHTML += "<button class=\"waves-effect waves-light btn right edit yellow darken-1 animated slideInRight\"><i class=\"material-icons\">edit</i></button>";
-	listDiv.innerHTML += "<button class=\"waves-effect waves-light btn right check green lighten-1 animated slideInRight\"><i class=\"material-icons\">check</i></button>";
+	listDiv.innerHTML += "<button data-target=\"modal1\" class=\"waves-effect waves-light btn right edit yellow darken-1 animated slideInRight modal-trigger\"><i class=\"material-icons\">edit</i></button>";
 	return listDiv;
 }
 
@@ -95,4 +109,13 @@ function closeFunction(){
 		card.outerHTML = ""; 
 		M.toast({html: 'Task deleted', classes: 'red lighten-1'});
 	}, 650);
+}
+
+function editFunction(){
+	var task_id = this.attributes.href.value;
+	taskCard = this.parentElement;
+	console.log(taskCard);
+	var childText = taskCard.children[0].innerText;
+	modals.setAttribute("href", task_id);
+	modals.children[0].children[1].children[0].value = childText;
 }

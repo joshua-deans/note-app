@@ -51,7 +51,7 @@ router.get("/login", function(req, res){
 	}
 	else {
 		req.flash('error', "Already logged in");
-		return res.redirect('/' + user._id + '/tasks');
+		return res.redirect('/' + req.user._id + '/tasks');
 	}
 });
 
