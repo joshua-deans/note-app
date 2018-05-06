@@ -34,7 +34,7 @@
 		<div class="card-content">
 			<span class="card-title">Add New Task</span>
         	<form method="POST" action ="/<%= users._id %>/tasks">
-        		<input placeholder="Task" id="task" name="task" type="text" class="validate" required>
+        		<input placeholder="Task" id="task" name="task" type="text" class="validate" maxlength="70" required>
         		<input id="dateInput" name="dateInput" type="text" placeholder="Select Date.." data-input>
 				<button class="btn waves-effect waves-light" name="submit" id="submit-task">Submit
 					<i class="material-icons right">send</i>
@@ -58,7 +58,7 @@
 	    <div class="modal-content">
 	      <span class="card-title">Edit Task</span>
         	<form>
-        		<input placeholder="Task" id="taskEdit" name="taskEdit" type="text" class="validate" required>
+        		<input placeholder="Task" id="taskEdit" name="taskEdit" type="text" class="validate" maxlength="70" required>
         		<input id="dateEdit" name="dateEdit" type="text" placeholder="Select Date.." data-input> 
 				<button class="btn waves-effect waves-light" name="submit" id="submit-task">Submit
 					<i class="material-icons right">send</i>
