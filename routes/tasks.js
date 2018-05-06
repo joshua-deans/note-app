@@ -36,8 +36,9 @@ router.post("/:user_id/tasks", function(req, res){
 	if (req.user && req.user._id.equals(req.params.user_id)){
 		let task = new Task();
 		task.task = req.body.task;
-		task.date = Date.now();
+		task.date = req.body.date;
 		task.user = req.user._id;
+		console.log(task.date);
 
 		task.save(function(err){
 			if (err){
@@ -59,7 +60,7 @@ router.post("/:user_id/tasks", function(req, res){
 
 router.put("/:user_id/tasks/:task_id", function(req, res){
 	if (req.user && req.user._id.equals(req.params.user_id)){
-		Task.findByIdAndUpdate(req.params.task_id, {task: req.body.taskEdit}, function(err){
+		Task.findByIdAndUpdate(req.params.task_id, {task: req.body.taskEdit, date: req.body.dateEdit}, function(err){
 			if (err){
 				console.log(err);
 				req.flash('error', "Error occurred");
@@ -67,7 +68,7 @@ router.put("/:user_id/tasks/:task_id", function(req, res){
 			}
 			else {
 				req.flash('success', "Task added");
-				res.send("Okay");
+				res.send({taskEdit: req.body.taskEdit, dateEdit: req.body.dateEdit});
 			};
 		})
 	}
@@ -94,6 +95,16 @@ router.delete("/:user_id/tasks/:task_id", function(req, res){
 	else {
 		req.flash('error', "Not authorized");
 		res.redirect('back');
+	}
+});
+
+router.get("/*", function(req, res){
+	if (req.user && req.user._id.equals(req.params.user_id)){
+		res.redirect("/" + req.user._id + "/tasks");
+	}
+	else {
+		req.flash('error', 'Not logged in');
+		res.redirect("/");
 	}
 });
 

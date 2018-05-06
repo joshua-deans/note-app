@@ -2,7 +2,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>   
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>     
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/flatpickr@4.4.4/dist/themes/material_red.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </head>
 <body class="grey lighten-5">
 <nav class="nav-extended">
@@ -33,6 +35,7 @@
 			<span class="card-title">Add New Task</span>
         	<form method="POST" action ="/<%= users._id %>/tasks">
         		<input placeholder="Task" id="task" name="task" type="text" class="validate" required>
+        		<input id="dateInput" name="dateInput" type="text" placeholder="Select Date.." data-input>
 				<button class="btn waves-effect waves-light" name="submit" id="submit-task">Submit
 					<i class="material-icons right">send</i>
 				</button>
@@ -40,13 +43,13 @@
 		</div>
 	</div>     
 	<% if (tasks){ %>
-	<ul class="collection">
+	<ul class="collection" id="collection-list">
 		<% tasks.forEach(function(taski){ %>   
 		<li class="collection-item note">
-			<span class="task"><%= taski.task %></span>
-			<span class="date"><em><%- taski.date %></em></span>
-			<button class="waves-effect waves-light btn right close red lighten-1 animated slideInRight" href="<%= taski._id %>"><i class="material-icons">close</i></button>
-			<button data-target="modal1" class="waves-effect waves-light btn right edit yellow darken-1 animated slideInRight modal-trigger" href="<%= taski._id %>"><i class="material-icons">edit</i></button>
+			<span class="task truncate"><%= taski.task %></span>
+			<span class="date" date="<%- taski.date %>"><em><%- taski.date %></em></span>
+			<button class="waves-effect waves-light btn-small right close red lighten-1 animated slideInRight" href="<%= taski._id %>"><i class="material-icons">close</i></button>
+			<button data-target="modal1" class="waves-effect waves-light btn-small right edit yellow darken-1 animated slideInRight modal-trigger" href="<%= taski._id %>"><i class="material-icons">edit</i></button>
 	    </li>
 	    <% }) %>
 	</ul>
@@ -56,6 +59,7 @@
 	      <span class="card-title">Edit Task</span>
         	<form>
         		<input placeholder="Task" id="taskEdit" name="taskEdit" type="text" class="validate" required>
+        		<input id="dateEdit" name="dateEdit" type="text" placeholder="Select Date.." data-input> 
 				<button class="btn waves-effect waves-light" name="submit" id="submit-task">Submit
 					<i class="material-icons right">send</i>
 				</button>
@@ -64,23 +68,19 @@
 	</div>
 </div>
 
-<script>
-	var dates = document.querySelectorAll(".date");
-	dates.forEach(function(date){
-		var fromNow = moment(date.innerText).fromNow();
-		date.innerText = fromNow;
-	});
-</script>
 <% if (error.length > 0){ %>
 <script>
 M.toast({html: '<%= error %>', classes: 'red lighten-1'});
 </script>
 <% } %>
+
 <% if (success.length > 0){ %>
 <script>
 M.toast({html: '<%= success %>', classes: 'green lighten-1'});
 </script>
 <% } %>
+
 <script type="text/javascript" src="/javascripts/note-app.js"></script>
+<!-- <script type="text/javascript" src="/javascripts/sort-list.js"></script> -->
 </body>
 </html>

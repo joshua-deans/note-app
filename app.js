@@ -1,4 +1,3 @@
-const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -58,7 +57,7 @@ app.use(function(req, res, next){
 	res.locals.success = req.flash('success');
 	res.locals.error = req.flash('error');
 	next();
-})
+});
 
 // Home Route
 app.get("/", function(req, res, next){
@@ -83,9 +82,3 @@ var port = process.env.PORT || 8080,
 app.listen(port, ip, function(){
     console.log( "Listening on port " + port )
 });
-
-function passportMiddleware(){
-	passport.authenticate('local', { successRedirect: '/tasks',
-                                   failureRedirect: '/',
-                                   failureFlash: true });
-}
