@@ -65,7 +65,7 @@ app.get("/", function(req, res, next){
 		res.render("landing");
 	}
 	else {
-		req.flash('error', "Already logged in");
+		// req.flash('error', "Already logged in");
 		res.redirect("/" + req.user._id + "/tasks")
 	}
 });

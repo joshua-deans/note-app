@@ -5,20 +5,20 @@
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/flatpickr@4.4.4/dist/themes/material_red.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+	<script src="/javascripts/list.min.js"></script>
 </head>
-<body class="grey lighten-5">
+<body class="grey lighten-5" id="list-container">
 <nav class="nav-extended">
     <div class="nav-wrapper">
         <a class="brand-logo center" href="/">Task List</a>
         <% if (!users){ %>
-        <ul>
+        <ul class="left show">
 		    <li><a href="/login">Login</a></li>
 		    <li><a href="/signup">Signup</a></li>
 		</ul>
 		<% } else{ %>
-        <ul>
-		    <li><a><%= users.name %></a></li>
-		    <li><a href="/logout">Log Out</a></li>
+        <ul id="nav-mobile" class="left">
+		    <li><a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a></li>
 		</ul>
 		<% } %>
     </div>
@@ -28,34 +28,56 @@
         </a>
     </div>
 </nav>
+<ul id="slide-out" class="sidenav">
+    <li><div class="user-view">
+      <span class="black-text name"><b><%= users.name %></b></span>
+      <span class="black-text email"><%= users.email %></span>
+    </div></li>
+    <li><div class="divider"></div></li>
+    <li><a class="subheader">Show:</a></li>
+    <li><a class="waves-effect" id="today-show">Today</a></li>
+    <li><a class="waves-effect" id="week-show">This Week</a></li>
+    <li><a class="waves-effect selected" id="all-show">All</a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="subheader">Sort:</a></li>
+    <!-- <li><a class="waves-effect selected" id="original-sort">By Original Order</a></li> -->
+    <li><a class="waves-effect sort" data-sort="task" id="task-sort">By Task</a></li>
+    <li><a class="waves-effect sort" data-sort="date" id="date-sort">By Date</a></li>
+    <li><div class="divider"></div></li>
+    <li><a href="/logout">Log Out</a></li>
+</ul>
 <br>
 <div class="container" id="note-container">
+	<input class="search" id="search" type="search" placeholder="Search" required>
 	<div class="card hoverable z-depth-2 hide" id="form-card">
 		<div class="card-content">
 			<span class="card-title">Add New Task</span>
         	<form method="POST" action ="/<%= users._id %>/tasks">
         		<input placeholder="Task" id="task" name="task" type="text" class="validate" maxlength="70" required>
-        		<input id="dateInput" name="dateInput" type="text" placeholder="Select Date.." data-input>
+        		<input id="dateInput" name="dateInput" type="text" placeholder="Select Date.." data-input required>
 				<button class="btn waves-effect waves-light" name="submit" id="submit-task">Submit
 					<i class="material-icons right">send</i>
 				</button>
 			</form>
 		</div>
-	</div>     
+	</div>    
 	<% if (tasks){ %>
-	<ul class="collection" id="collection-list">
-		<% tasks.forEach(function(taski){ %>   
-		<li class="collection-item note">
-			<span class="task truncate"><%= taski.task %></span>
-			<span class="date" date="<%- taski.date %>"><em><%- taski.date %></em></span>
-			<button class="waves-effect waves-light btn-small right close red lighten-1 animated slideInRight" href="<%= taski._id %>"><i class="material-icons">close</i></button>
-			<button data-target="modal1" class="waves-effect waves-light btn-small right edit yellow darken-1 animated slideInRight modal-trigger" href="<%= taski._id %>"><i class="material-icons">edit</i></button>
-	    </li>
-	    <% }) %>
-	</ul>
+	<div id="list-container">
+		<ul class="collection list" id="collection-list">
+			<% tasks.forEach(function(taski){ %>   
+			<li class="collection-item note">
+				<span class="task truncate"><%= taski.task %></span>
+				<span class="date" date="<%- taski.date %>"><em><%- taski.date %></em></span>
+				<button class="waves-effect waves-light btn-small right close red lighten-1 animated slideInRight" href="<%= taski._id %>"><i class="material-icons">close</i></button>
+				<button data-target="modal1" class="waves-effect waves-light btn-small right edit yellow darken-1 animated slideInRight modal-trigger" href="<%= taski._id %>"><i class="material-icons">edit</i></button>
+		    </li>
+		    <% }) %>
+		</ul>
+	</div>
 	<% } %>
-	<div id="modal1" class="modal">
+	<div id="modal1" class="modal bottom-sheet">
 	    <div class="modal-content">
+	      <button class="btn-flat right modal-close"><i class="material-icons">close</i></button>
 	      <span class="card-title">Edit Task</span>
         	<form>
         		<input placeholder="Task" id="taskEdit" name="taskEdit" type="text" class="validate" maxlength="70" required>
@@ -79,8 +101,7 @@ M.toast({html: '<%= error %>', classes: 'red lighten-1'});
 M.toast({html: '<%= success %>', classes: 'green lighten-1'});
 </script>
 <% } %>
-
 <script type="text/javascript" src="/javascripts/note-app.js"></script>
-<!-- <script type="text/javascript" src="/javascripts/sort-list.js"></script> -->
+<script type="text/javascript" src="/javascripts/sort-list.js"></script>
 </body>
 </html>

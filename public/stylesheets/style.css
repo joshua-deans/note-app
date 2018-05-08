@@ -63,11 +63,15 @@
 	display: inline !important;
 	margin-bottom: -42.5px !important;
 }
-/*
-.note:hover .check {
-	display: inline !important;
-	margin-bottom: -42.5px !important;
-}*/
+
+.late {
+	color: #ef5350 !important;
+}
+
+.selected {
+	background-color: #e0e0e0;
+}
+
 
 /*.task-edit {
 	margin-bottom: 0 !important;
