@@ -4,9 +4,11 @@ var router = express.Router();
 const passport = require('passport');
 const bcrypt = require('bcryptjs');
 
+// Database models
 let Task = require('../models/posts');
 let User = require('../models/users');
 
+// Sign up page
 router.get("/signup", function(req, res){
 	if (!req.user){
 		res.render("signup");
@@ -17,6 +19,7 @@ router.get("/signup", function(req, res){
 	}
 });
 
+// Sign up post - registers user
 router.post("/signup", function(req, res){
 	let user = new User();
 	user.name = req.body.name;
@@ -45,6 +48,7 @@ router.post("/signup", function(req, res){
 	})
 });
 
+// Login get page 
 router.get("/login", function(req, res){
 	if (!req.user){
 		res.render("login");
@@ -55,7 +59,8 @@ router.get("/login", function(req, res){
 	}
 });
 
-router.post("/login",
+// Login post (authenticates via passport)
+router.post("/login", 
 	passport.authenticate('local', {
 		failureRedirect: '/login',
 		failureFlash: true,
@@ -66,6 +71,7 @@ router.post("/login",
   	}
 );
 
+// Logs user out of service.
 router.get('/logout', function(req, res){
   req.logout();
   req.flash('success', "Successfully logged out.");

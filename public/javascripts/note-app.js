@@ -43,10 +43,6 @@ closeButtons.forEach(function(button){
 	button.addEventListener("click", closeFunction);
 });
 
-// notes.forEach(function(note){
-// 	note.addEventListener("dblclick", function(){console.log("clicked");});
-// });
-
 if (addButton){
 	addButton.addEventListener("click", function(){
 		formCard.classList.toggle("hide");
@@ -98,24 +94,30 @@ if (formCard){
 			      date: dateInput.value,
 			      task: task.value
 			    })
-			.then(function (response) {
-			  var card = makeNewNote(note, response.data.date);	
-			  card.children[1].setAttribute("date", moment(response.data.date));
+			.then(function (response) {	
+			  // Create a new task "card" and prepend it to the collection of tasks.
+			  var card = makeNewNote(note, response.data.date);
 			  card.children[2].setAttribute("href", response.data._id);
 			  card.children[3].setAttribute("href", response.data._id);
 			  collection.prepend(card);
 			  document.querySelector(".close").addEventListener("click", closeFunction);
 			  document.querySelector(".edit").addEventListener("click", editFunction);
+			  // Functions to update the date variables
 			  dates = document.querySelectorAll(".date");
 			  makeDateUnix(dates[0]);
 			  updateDates(dates);
+			  // Empty values
 			  task.value = "";
+			  dateInput.value = "";
+			  // Hide the form
 			  formCard.classList.toggle("hide");
+			  // Display success alert
 			  M.toast({html: 'Task added', classes: 'green lighten-1'});
 			})
 			.catch(function (error) {
 			  console.log(error);
 			  task.value = "";
+			  dateInput.value = "";
 			  M.toast({html: error, classes: 'red lighten-1'});
 			});
 		}
@@ -129,6 +131,7 @@ function makeNewNote(note, date){
 	listDiv.innerHTML += "<span class=\"date\">" + moment(Number(date)).calendar(null, calendarAttributes) + "</span>";
 	listDiv.innerHTML += "<button class=\"waves-effect waves-light btn right close red lighten-1 animated slideInRight\"><i class=\"material-icons\">close</i></button>"
 	listDiv.innerHTML += "<button data-target=\"modal1\" class=\"waves-effect waves-light btn right edit yellow darken-1 animated slideInRight modal-trigger\"><i class=\"material-icons\">edit</i></button>";
+	listDiv.children[1].setAttribute("date", moment(date));
 	return listDiv;
 }
 
@@ -145,7 +148,7 @@ function closeFunction(){
   		})
 		  .then(function (response) {
 		    card.outerHTML = ""; 
-			M.toast({html: 'Task deleted', classes: 'green lighten-1'});
+			M.toast({html: 'Task deleted', classes: 'orange lighten-1'});
 		})
 		  .catch(function (error) {
 		    card.outerHTML = ""; 

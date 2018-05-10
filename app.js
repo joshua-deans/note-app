@@ -36,6 +36,7 @@ app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// misc middleware
 app.use(cookieParser());
 app.use(methodOverride('_method'))
 app.use(express.static(path.join(__dirname, 'public')));
@@ -52,6 +53,7 @@ require('./config/passport')(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 
+// flash middleware
 app.use(function(req, res, next){
 	res.locals.users = req.user;
 	res.locals.success = req.flash('success');

@@ -1,4 +1,3 @@
-var originalSort = document.querySelector("#original-sort");
 var dateSort = document.querySelector("#date-sort");
 var taskSort = document.querySelector("#task-sort");
 var todayShow = document.querySelector("#today-show");
@@ -13,7 +12,7 @@ var taskList = new List("list-container", options);
 
 todayShow.addEventListener("click", function(){
 	taskList.filter(function(item) {
-		if (moment(item._values.date).isBefore(moment().add(1, 'days'))){
+		if (moment(Number(item._values.date)).isBefore(moment().add(1, 'days'))){
 			return true;
 		}
 		else{
@@ -26,7 +25,7 @@ todayShow.addEventListener("click", function(){
 });
 weekShow.addEventListener("click", function(){
 	taskList.filter(function(item) {
-		if (moment(item._values.date).isBefore(moment().add(7, 'days'))){
+		if (moment(Number(item._values.date)).isBefore(moment().add(7, 'days'))){
 			return true;
 		}
 		else{
@@ -45,13 +44,6 @@ allShow.addEventListener("click", function(){
 	allShow.classList.add("selected");
 });
 
-// originalSort.addEventListener("click", function(){
-// 	taskList.sort();
-// 	originalSort.classList.add("selected");
-// 	dateSort.classList.remove("selected");
-// 	taskSort.classList.remove("selected");
-// });
-
 dateSort.addEventListener("click", function(){
 	taskList.sort('date', { alphabet: "9876543210" });
 	dateSort.classList.add("selected");
@@ -62,3 +54,10 @@ taskSort.addEventListener("click", function(){
 	dateSort.classList.remove("selected");
 	taskSort.classList.add("selected");
 });
+
+if (dateSort.classList.contains("selected")){
+	taskList.sort('date', { alphabet: "9876543210" });
+}
+else if (taskSort.classList.contains("selected")){
+	taskList.sort('task');
+}

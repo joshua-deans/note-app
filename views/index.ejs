@@ -1,7 +1,7 @@
 <% include partials/header %>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>   
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>     
+    <script src="/javascripts/axios.min.js"></script>     
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/flatpickr@4.4.4/dist/themes/material_red.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -40,9 +40,8 @@
     <li><a class="waves-effect selected" id="all-show">All</a></li>
     <li><div class="divider"></div></li>
     <li><a class="subheader">Sort:</a></li>
-    <!-- <li><a class="waves-effect selected" id="original-sort">By Original Order</a></li> -->
+    <li><a class="waves-effect sort selected" data-sort="date" id="date-sort">By Date</a></li>
     <li><a class="waves-effect sort" data-sort="task" id="task-sort">By Task</a></li>
-    <li><a class="waves-effect sort" data-sort="date" id="date-sort">By Date</a></li>
     <li><div class="divider"></div></li>
     <li><a href="/logout">Log Out</a></li>
 </ul>
