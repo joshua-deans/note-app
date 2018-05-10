@@ -49,15 +49,13 @@ router.post("/:user_id/tasks", function(req, res){
 				return;
 			}
 			else {
-				req.flash('success', "Task added");
-				console.log(task);
 				res.send(task);
 			}
 		})
 	}
 	else {
 		req.flash('error', "Not authorized");
-		res.status(500).send({ error: 'Error occurred!' });
+		res.redirect("/");
 		return;
 	}
 });
@@ -73,14 +71,14 @@ router.put("/:user_id/tasks/:task_id", function(req, res){
 				return;
 			}
 			else {
-				req.flash('success', "Task added");
 				res.send({taskEdit: req.body.taskEdit, dateEdit: req.body.dateEdit});
 			};
 		})
 	}
 	else {
 		req.flash('error', "Not authorized");
-		res.status(500).send({ error: 'Error occurred!' });
+		res.redirect("/");
+		return;
 	}
 });
 
@@ -94,15 +92,15 @@ router.delete("/:user_id/tasks/:task_id", function(req, res){
 				res.status(500).send({ error: 'Error occurred!' });
 			}
 			else {
-				req.flash('success', "Task deleted");
-				res.send("Task completed");
+				res.send("Task deleted");
 				return;
 			}
 		});	
 	}
 	else {
 		req.flash('error', "Not authorized");
-		res.status(500).send({ error: 'Error occurred!' });
+		res.redirect("/");
+		return; 
 	}
 });
 

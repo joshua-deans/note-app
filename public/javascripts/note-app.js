@@ -8,6 +8,8 @@ var sideNav = document.querySelectorAll('.sidenav');
 var formCard = document.querySelector("#form-card");
 var collection = document.querySelector(".collection");
 var modals = document.querySelector('.modal');
+var dateSort = document.querySelector("#date-sort");
+var taskSort = document.querySelector("#task-sort");
 var taskCard;
 
 var calendarAttributes = {
@@ -16,7 +18,7 @@ var calendarAttributes = {
     nextWeek: 'dddd [at] LT',
     lastDay: '[Yesterday at] LT',
     lastWeek: '[Last] dddd [at] LT',
-    sameElse: 'MMMM DD, YYYY [at] LT'
+    sameElse: 'MMMM D, YYYY [at] LT'
 };
 
 var flatpickrAttributes = {
@@ -106,6 +108,14 @@ if (formCard){
 			  dates = document.querySelectorAll(".date");
 			  makeDateUnix(dates[0]);
 			  updateDates(dates);
+			  taskList.reIndex();
+			  if (dateSort.classList.contains("selected")){
+			    dateSort.click();
+			  }
+			  else if (taskSort.classList.contains("selected")){
+				taskSort.click();
+			  }
+
 			  // Empty values
 			  task.value = "";
 			  dateInput.value = "";
