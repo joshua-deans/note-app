@@ -4,6 +4,7 @@
 
 #### Features:
 * User authentication with PassportJS. This allows for full login/sign up functionality.
+* Materialize CSS for front end.
 * Password encryption with bcrypt.
 * AJAX POST/PUT/DELETE requests with Axios. This allows for seamless actions without reloading the page.
 * Sorting, filtering and searching the task list with ListJS.
