@@ -22,10 +22,11 @@
 	position: relative;
 	display: none !important;
 	box-shadow: none !important;
-	top: -37.5px;
-	height: 75px !important;
+	top: -36px;
+	height: 72.5px !important;
 	left: 20px;
 	border-radius: 0 !important;
+	-webkit-transition: all .5s ! important;
 	-webkit-animation-duration: .5s !important;
           animation-duration: .5s !important;
 }
@@ -34,10 +35,11 @@
 	position: relative;
 	display: none !important;
 	box-shadow: none !important;
-	top: -37.5px;
-	height: 75px !important;
+	top: -36px;
+	height: 72.5px !important;
 	left: 20px;
 	border-radius: 0 !important;
+	-webkit-transition: all .5s !important;
 	-webkit-animation-duration: .5s !important;
           animation-duration: .5s !important;
 }
@@ -72,18 +74,6 @@
 	background-color: #e0e0e0;
 }
 
-
-/*.task-edit {
-	margin-bottom: 0 !important;
+.name {
+	margin-top: 0 !important;
 }
-
-.task-field {
-	margin: 0 !important;
-	width: 65%;
-}
-
-.editting {
-	text-decoration: underline;
-	color: gray;
-}*/
-
