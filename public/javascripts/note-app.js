@@ -8,6 +8,7 @@ var sideNav = document.querySelectorAll('.sidenav');
 var formCard = document.querySelector("#form-card");
 var collection = document.querySelector(".collection");
 var modals = document.querySelector('.modal');
+var switchToggle = document.querySelector('#switchToggle');
 var dateSort = document.querySelector("#date-sort");
 var taskSort = document.querySelector("#task-sort");
 var taskCard;
@@ -187,6 +188,7 @@ function makeDateUnix(date) {
 }
 
 function updateDates(dates) {
+	console.log("Update Dates ran");
 	dates.forEach(function(date){
 		if (moment(Number(date.attributes.date.value)).isBefore(Date.now())){
 			date.classList.add("late");
@@ -196,7 +198,24 @@ function updateDates(dates) {
 			date.classList.remove("late");
 			date.previousElementSibling.classList.remove("late");
 		}
-		var fromNow = moment(Number(date.attributes.date.value)).calendar(null, calendarAttributes);
+		var nowMoment = moment(Number(date.attributes.date.value));
+		if (switchToggle.checked && 
+			nowMoment.isBetween(moment(), moment().add(60, 'seconds'), null, '(]')){
+			var taskText = date.previousElementSibling.innerHTML;
+			displayPush(taskText, nowMoment);
+		}
+		var fromNow = nowMoment.calendar(null, calendarAttributes);
 		date.innerText = fromNow;
+	});
+}
+
+function displayPush(taskText, momentObj){
+	Push.create("Task due", {
+	    body: taskText + "\n" + momentObj.format("MMMM D, YYYY [at] LT"),
+	    timeout: 8000,
+	    onClick: function () {
+	        window.focus();
+	        this.close();
+	    }
 	});
 }

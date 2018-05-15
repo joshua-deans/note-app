@@ -6,6 +6,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 	<script src="/javascripts/list.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.5/push.js"></script>
 </head>
 <body class="grey lighten-5" id="list-container">
 <nav class="nav-extended">
@@ -42,6 +43,17 @@
     <li><a class="subheader"> Sort: </a></li>
     <li><a class="waves-effect sort selected" data-sort="date" id="date-sort">By Date</a></li>
     <li><a class="waves-effect sort" data-sort="task" id="task-sort">By Task</a></li>
+    <li><div class="divider"></div></li>
+    <li>
+    	<a id="push-not" class="subheader" style="display:inline"> Push notifications: </a>
+    	<!-- Switch -->
+		  <span class="switch">
+		    <label>
+		      <input type="checkbox" id="switchToggle">
+		      <span class="lever"></span>
+		    </label>
+		  </span>
+    </li>
     <li><div class="divider"></div></li>
     <li><a href="/logout">Log Out</a></li>
 </ul>
@@ -88,14 +100,6 @@
 	    </div>
 	</div>
 </div>
-
-<footer class="page-footer">
-  <div class="footer-copyright">
-    <div class="container">
-    <a class="grey-text text-lighten-4" href="http://www.joshuadeans.com">Made by Joshua Deans</a>
-    </div>
-  </div>
-</footer>
 
 <% if (error.length > 0){ %>
 <script>
